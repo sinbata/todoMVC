@@ -4,8 +4,9 @@
 			type="checkbox" class="toggle"> <!-- 左のチェックボックス -->
 		<label>{{todo.title}}</label> <!-- todo内容 -->
 		<button
-			class="destroy" @click="removeTodo">
-		</button><!-- 削除ボタン -->
+			class="destroy" 
+            @click="removeTodo">
+		</button> <!-- 削除ボタン -->
 	</div>
 </template>
 
@@ -17,7 +18,7 @@ export default {
     },
     methods:{
         removeTodo(){
-            this.$emit('remove-todo', this.Todo);
+            this.$emit('remove-todo', this.todo);
         }
     }
 }

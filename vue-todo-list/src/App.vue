@@ -13,7 +13,8 @@
 		</header>
 		<todo-list
 			:todos="todos"
-			:filtered-todos="filteredTodos">
+			:filtered-todos="filteredTodos"
+      @remove-todo="removeTodo">
 		</todo-list>
     <!-- 
       :todos -> v-bind:todos  
@@ -53,8 +54,10 @@ export default {
 				id: this.uid++,
 				title: newTodo,
 				completed: false
-      });
-      
+			});
+    },
+    removeTodo(todo) {
+      this.todos = this.todos.filter((item) => item !== todo);
 		}
 	}
 }

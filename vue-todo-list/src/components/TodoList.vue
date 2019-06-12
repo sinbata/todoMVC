@@ -17,9 +17,12 @@
                     todo in filteredTodos   ->  app.jsのcomputedからtodoを受け取っている 
                 -->
 				<todo-item
-					:todo="todo"><!-- v-model todo-->
-                    @remove-todo="removeTodo"
+					:todo="todo"
+                    @remove-todo="removeTodo" >
 				</todo-item>
+                <!-- v-model todo
+                     @ v-on
+                -->
 			</li>
 		</ul>
 	</section>
@@ -37,8 +40,8 @@ export default {
 		filteredTodos: Array
     },// app.jsからのv-model参照
     methods:{
-        removeTodo(){
-            this.$emit('remove-todo', todo);
+        removeTodo(todo){
+            this.$emit('remove-todo',todo);
         }
     }
     
