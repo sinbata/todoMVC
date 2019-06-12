@@ -53,7 +53,8 @@ export default {
 				id: this.uid++,
 				title: newTodo,
 				completed: false
-			});
+      });
+      
 		}
 	}
 }

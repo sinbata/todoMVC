@@ -38,7 +38,7 @@ export default {
     },// app.jsからのv-model参照
     methods:{
         removeTodo(){
-            this.$emit('remove-todo', this.Todo);
+            this.$emit('remove-todo', todo);
         }
     }
     
