@@ -44,7 +44,7 @@ export default {
 	props: {
 		todos: Array,
         filteredTodos: Array,
-        allDone: boolean
+        allDone: Boolean
     },// app.jsからのv-model参照
     methods:{
         removeTodo(todo){
@@ -54,7 +54,7 @@ export default {
             this.$emit('done',todo,completed);
         },
         onInput(){
-            this.$$emit('allDone',!this.allDone)
+            this.$emit('allDone',!this.allDone)
         }
     }
     

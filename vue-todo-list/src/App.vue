@@ -16,7 +16,7 @@
         :filtered-todos="filteredTodos"
         @remove-todo="removeTodo"
         @done = "done"
-		:allDone="alldone"
+		:allDone="allDone"
 		@allDone="onAllDone">
 		</todo-list>
     <!-- 
@@ -95,10 +95,10 @@ export default {
 		allDone: {
 			get(){
 				return this.remaining === 0;
-			},
+			},//remainingを0にしつつ返す
 			set(value){
-				this.todos.forEach((todo)=>todo.completed == value);
-			}
+				this.todos.forEach((todo) => todo.completed = value);
+			}//チェックボックスから渡された引数値(value)を、リストデータ(todos)のすべての項目のプロパティ(completed)に定めます。
 		}
   	},
   	watch: {
@@ -137,7 +137,7 @@ export default {
 			this.visibility = getVisibility();
 		},
 		onAllDone(done){
-			this.done = done;
+			this.allDone = done;
 		}
 	}
 }
