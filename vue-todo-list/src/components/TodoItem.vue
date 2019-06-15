@@ -3,7 +3,9 @@
 		<input
 			type="checkbox" class="toggle"
             :value ="todo.completed"
-            @change="onInput" > <!-- 左のチェックボックス -->
+            @change="onInput" 
+            :checked="todo.completed"
+            > <!-- 左のチェックボックス -->
 		<label>{{todo.title}}</label> <!-- todo内容 -->
 		<button
 			class= "destroy" 
@@ -23,7 +25,6 @@ export default {
             this.$emit('remove-todo', this.todo);
         },
         onInput(){
-            console.log("c");
             this.$emit('done',this.todo,!this.todo.completed);
         }
     }

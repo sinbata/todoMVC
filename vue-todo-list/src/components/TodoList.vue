@@ -7,7 +7,11 @@
                         コンパイルされていない Mustache バインディングを隠すのに使うことができる
             
         -->
-		<input class="toggle-all" type="checkbox">
+		<input class="toggle-all" type="checkbox" id="toggle-all"
+            :value="allDone"
+            :checked="allDone"
+            @change="onInput"
+        ><label for="toggle-all"></label>
 		<ul class="todo-list">
 			<li v-for="todo in filteredTodos"
 				class="todo"
@@ -39,15 +43,18 @@ export default {
 	},
 	props: {
 		todos: Array,
-		filteredTodos: Array
+        filteredTodos: Array,
+        allDone: boolean
     },// app.jsからのv-model参照
     methods:{
         removeTodo(todo){
             this.$emit('remove-todo',todo);
         },
         done(todo,completed){
-            console.log("b");
             this.$emit('done',todo,completed);
+        },
+        onInput(){
+            this.$$emit('allDone',!this.allDone)
         }
     }
     
