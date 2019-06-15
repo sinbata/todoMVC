@@ -23,7 +23,7 @@ export default {
 		addTodo() {
 			this.$emit('add-todo', this.newTodo); //$emit  現在のインスタンス上のイベントをトリガ
 			this.newTodo = ''; //入力欄に空白を入れる（初期化）
-		}
+        }
 	}
 }
 </script>

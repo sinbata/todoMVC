@@ -14,7 +14,8 @@
 		<todo-list
 			:todos="todos"
 			:filtered-todos="filteredTodos"
-      @remove-todo="removeTodo">
+      @remove-todo="removeTodo"
+      @done = "done">
 		</todo-list>
     <!-- 
       :todos -> v-bind:todos  
@@ -58,7 +59,11 @@ export default {
     },
     removeTodo(todo) {
       this.todos = this.todos.filter((item) => item !== todo);
-		}
+		},
+    done(todo,completed){
+      console.log("a");
+      todo.completed=completed;
+    }
 	}
 }
 </script>

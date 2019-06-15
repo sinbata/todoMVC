@@ -11,14 +11,16 @@
 		<ul class="todo-list">
 			<li v-for="todo in filteredTodos"
 				class="todo"
-				:key="todo.id">
+				:key="todo.id"
+                :class="{completed:todo.completed}">
                 <!--  
                     v-for   ->  要素またはテンプレートブロックを複数回描画
                     todo in filteredTodos   ->  app.jsのcomputedからtodoを受け取っている 
                 -->
 				<todo-item
 					:todo="todo"
-                    @remove-todo="removeTodo" >
+                    @remove-todo="removeTodo"
+                    @done="done" >
 				</todo-item>
                 <!-- v-model todo
                      @ v-on
@@ -42,6 +44,10 @@ export default {
     methods:{
         removeTodo(todo){
             this.$emit('remove-todo',todo);
+        },
+        done(todo,completed){
+            console.log("b");
+            this.$emit('done',todo,completed);
         }
     }
     
