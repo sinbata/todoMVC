@@ -5,7 +5,7 @@
     autocomplete="off"
     placeholder="What needs to be done?"
     v-model="newTodo"
-    @keypress.enter="addTodo"
+    @keypress.enter="onAddTodo"
   >
   <!-- 
             v-model : 省略[:]form の input 要素またはコンポーネント上に双方向バインディングを作成
@@ -23,7 +23,7 @@ export default {
     };
   },
   methods: {
-    addTodo() {
+    onAddTodo() {
       this.$emit("add-todo", this.newTodo); //$emit  現在のインスタンス上のイベントをトリガ
       this.newTodo = ""; //入力欄に空白を入れる（初期化）
     }

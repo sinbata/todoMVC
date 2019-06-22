@@ -6,21 +6,21 @@
     v-todo-focus="todo == editedTodo"
     :value="todo.title"
     @input="onInput"
-    @keypress.enter="doneEdit"
-    @keyup.esc="cancelEdit"
-    @blur="cancelEdit"
+    @keypress.enter="onDoneEdit"
+    @keyup.esc="onCancelEdit"
+    @blur="onCancelEdit"
   >
 </template>
 
 <script>
 export default {
-  name: 'TodoEdit',
-  direvtives: {
-      ['todo-focus'](element,binding){
-          if(binding.value){
-              element.focus();
-          }
+  name: "TodoEdit",
+  directives: {
+    ["todo-focus"](element, binding) {
+      if (binding.value) {
+        element.focus();
       }
+    }
   },
   props: {
     todo: Object,
@@ -38,18 +38,14 @@ export default {
     onInput(event) {
       this.editedTitle = event.target.value;
     },
-    doneEdit(event) {
+    onDoneEdit(event) {
       this.editedTitle = event.target.value;
-      this.$emit('done-edit', this.editedTitle);
+      this.$emit("done-edit", this.editedTitle);
     },
-    cancelEdit(event){
-        event.target.value = this.todo.title;
-        this.$emit('cancel-edit');
+    onCancelEdit(event) {
+      event.target.value = this.todo.title;
+      this.$emit("cancel-edit");
     }
   }
-  
 };
 </script>
-
-
-

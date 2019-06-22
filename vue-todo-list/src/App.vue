@@ -7,7 +7,7 @@
         autofocus
         autocomplete="off"
         placeholder="What needs to be done?"
-        @add-todo="addTodo"
+        @add-todo="onAddTodo"
       ></todo-input>
       <!-- @add-todo — TodoinputのaddTodo() methodから
       v-on : 省略[@] 要素にイベントリスナをアタッチ
@@ -16,8 +16,8 @@
     <todo-list
       :todos="todos"
       :filtered-todos="filteredTodos"
-      @remove-todo="removeTodo"
-      @done="done"
+      @remove-todo="onRemoveTodo"
+      @done="onDone"
       :allDone="allDone"
       @allDone="onAllDone"
     ></todo-list>
@@ -29,7 +29,7 @@
       :todos="todos"
       :remaining="remaining"
       :visivility="visibility"
-      @removeCompleted="removeCompleted"
+      @removeCompleted="onRemoveCompleted"
     ></todo-controller>
   </section>
 </template>
@@ -116,7 +116,7 @@ export default {
     window.addEventListener("hashchange", this.onHashChange);
   },
   methods: {
-    addTodo(todoTitle) {
+    onAddTodo(todoTitle) {
       const newTodo = todoTitle && todoTitle.trim();
       if (!newTodo) {
         return;
@@ -128,11 +128,11 @@ export default {
       });
       todoStorage.save(this.todos);
     },
-    removeTodo(todo) {
+    onRemoveTodo(todo) {
       this.todos = this.todos.filter(item => item !== todo);
       //todoStorage.save(this.todos);
     },
-    done(todo, completed) {
+    onDone(todo, completed) {
       todo.completed = completed;
     },
     onHashChange() {
@@ -142,7 +142,7 @@ export default {
     onAllDone(done) {
       this.allDone = done;
     },
-    removeCompleted() {
+    onRemoveCompleted() {
       this.todos = filters.active(this.todos);
     }
   }
@@ -150,5 +150,5 @@ export default {
 </script>
 
 <style>
-@import url("https://unpkg.com/todomvc-app-css@2.2.0/index.css");
+@import "./index.css";
 </style>

@@ -8,9 +8,9 @@
       :checked="todo.completed"
     >
     <!-- 左のチェックボックス -->
-    <label @dblclick="editTodo">{{todo.title}}</label>
+    <label @dblclick="onEditTodo">{{todo.title}}</label>
     <!-- todo内容 -->
-    <button class="destroy" @click="removeTodo"></button>
+    <button class="destroy" @click="onRemoveTodo"></button>
     <!-- 削除ボタン -->
   </div>
 </template>
@@ -22,13 +22,13 @@ export default {
     todo: Object
   },
   methods: {
-    removeTodo() {
+    onRemoveTodo() {
       this.$emit("remove-todo", this.todo);
     },
     onInput() {
       this.$emit("done", this.todo, !this.todo.completed);
     },
-    editTodo() {
+    onEditTodo() {
       this.$emit("edit-todo", this.todo);
     }
   }

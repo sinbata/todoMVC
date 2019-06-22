@@ -27,12 +27,12 @@
                     v-for   ->  要素またはテンプレートブロックを複数回描画
                     todo in filteredTodos   ->  app.jsのcomputedからtodoを受け取っている 
         -->
-        <todo-item :todo="todo" @remove-todo="removeTodo" @done="done" @edit-todo="editTodo"></todo-item>
+        <todo-item :todo="todo" @remove-todo="onRemoveTodo" @done="done" @edit-todo="onEditTodo"></todo-item>
 
         <todo-edit
           :todo="todo"
-          @done-edit="doneEdit"
-          @cancel-edit="cancelEdit"
+          @done-edit="onDoneEdit"
+          @cancel-edit="onCancelEdit"
           :editedTodo="editedTodo"
         ></todo-edit>
       </li>
@@ -61,7 +61,7 @@ export default {
     allDone: Boolean
   }, // app.jsからのv-model参照
   methods: {
-    removeTodo(todo) {
+    onRemoveTodo(todo) {
       this.$emit("remove-todo", todo);
     },
     done(todo, completed) {
@@ -70,10 +70,10 @@ export default {
     onInput() {
       this.$emit("allDone", !this.allDone);
     },
-    editTodo(todo) {
+    onEditTodo(todo) {
       this.editedTodo = todo;
     },
-    doneEdit(todoTitle) {
+    onDoneEdit(todoTitle) {
       if (!this.editedTodo) {
         return;
       }
@@ -85,7 +85,7 @@ export default {
       }
       this.editedTodo = null;
     },
-    cancelEdit() {
+    onCancelEdit() {
       this.editedTodo = null;
     }
   }
