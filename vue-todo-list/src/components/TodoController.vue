@@ -9,8 +9,8 @@
             <li><a href="#/completed" :class="{selected: visivility === 'completed'}">Completed</a></li>
         </ul>
         <button class="clear-completed" 
-            v-show="todos.length > remaining"
-			@click="removeCompleted">
+            v-show= "todos.length > remaining"
+			@click= "removeCompleted">
             Clear Completed
         </button>
 
@@ -30,7 +30,7 @@ export default {
             return n === 1 ? 'item' : 'items';
         }
     },
-    Methods: {
+    methods: {
         removeCompleted() {
 			this.$emit('removeCompleted');
 		}
