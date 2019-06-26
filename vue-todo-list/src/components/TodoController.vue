@@ -10,17 +10,13 @@
       -->
     </span>
     <ul class="filters">
-      <li>
-        <a href="#/all" :class="{selected: visivility === 'all'}">All</a>
-      </li>
-      <li>
-        <a href="#/active" :class="{selected: visivility === 'active'}">Active</a>
-      </li>
-      <li>
-        <a href="#/completed" :class="{selected: visivility === 'completed'}">Completed</a>
+      <li v-for="item in items" :key="item.name">
+        <a
+          v-bind:href="'#' + item.name"
+          v-bind:class="{selected: visivility === item.name}"
+        >{{ item.display }}</a>
       </li>
     </ul>
-    <!-- v-forの方がいい -->
     <button
       class="clear-completed"
       v-show="todos.length > remaining"
@@ -39,6 +35,18 @@ export default {
     todos: Array,
     remaining: Number,
     visivility: String
+  },
+  data() {
+    return {
+      items: [
+        { name: "all", display: "ALl" },
+        { name: "active", display: "Active" },
+        {
+          name: "completed",
+          display: "Completed"
+        }
+      ]
+    };
   },
   filters: {
     pluralize(n) {
