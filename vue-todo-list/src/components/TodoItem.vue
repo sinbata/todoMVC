@@ -23,13 +23,13 @@ export default {
   },
   methods: {
     onRemoveTodo() {
-      this.$emit("remove-todo", this.todo);
+      this.$emit("remove-todo", this.todo); //remove-todoにemit
     },
     onInput() {
-      this.$emit("done", this.todo, !this.todo.completed);
+      this.$emit("done", this.todo, !this.todo.completed); //doneにemit
     },
     onEditTodo() {
-      this.$emit("edit-todo", this.todo);
+      this.$emit("edit-todo", this.todo); //edit-todoにemit
     }
   }
 };

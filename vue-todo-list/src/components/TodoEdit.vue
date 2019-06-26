@@ -10,6 +10,12 @@
     @keyup.esc="onCancelEdit"
     @blur="onCancelEdit"
   >
+  <!-- 
+    todo == editedTodo => edit中ならfocusをそこに
+    enterを押したらonDoneEdit
+    escを押したらonCancelEdit
+    blur(他のところ押したら)onCancelEdit
+  -->
 </template>
 
 <script>
@@ -19,7 +25,7 @@ export default {
     //カスタムディレクティブ
     ["todo-focus"](element, binding) {
       if (binding.value) {
-        element.focus(); //要素にフォーカス(クリックのやつ)
+        element.focus(); //要素にフォーカス(テキスト打ってますってやつ)
       }
     }
   },

@@ -85,10 +85,10 @@ export default {
       } else {
         this.removeTodo(this.editedTodo); //removetodoをする
       }
-      this.editedTodo = null;
+      this.editedTodo = null; //nullを代入=>変更なし
     },
     onCancelEdit() {
-      this.editedTodo = null;
+      this.editedTodo = null; // cencelされたらnullを代入=>変更なし
     }
   }
 };

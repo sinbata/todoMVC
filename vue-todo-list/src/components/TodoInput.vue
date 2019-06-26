@@ -8,9 +8,8 @@
     @keypress.enter="onAddTodo"
   >
   <!-- 
-            v-model : 省略[:]form の input 要素またはコンポーネント上に双方向バインディングを作成
-            v-on : 省略[@] 要素にイベントリスナをアタッチ
-                        .{keyCode | keyAlias} - 指定したキーが押された時のみトリガされる
+    enterを押したらonAddTodo
+    newtodoとのv-model
   -->
 </template>
 
