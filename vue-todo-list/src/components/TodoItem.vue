@@ -8,7 +8,7 @@
       :checked="todo.completed"
     >
     <!-- 左のチェックボックス -->
-    <label @dblclick="onEditTodo">{{todo.title}}</label>
+    <label @dblclick="onEditTodo" class="todoLabel">{{todo.title}}</label>
     <!-- todo内容 -->
     <button class="destroy" @click="onRemoveTodo"></button>
     <!-- 削除ボタン -->
@@ -34,3 +34,4 @@ export default {
   }
 };
 </script>
+

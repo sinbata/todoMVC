@@ -71,17 +71,19 @@ export default {
       this.$emit("allDone", !this.allDone);
     },
     onEditTodo(todo) {
-      this.editedTodo = todo;
+      this.editedTodo = todo; //編集ずみtodoにtodoを
     },
     onDoneEdit(todoTitle) {
       if (!this.editedTodo) {
+        //editedtodoではないのなら
         return;
       }
-      const title = todoTitle.trim();
+      const title = todoTitle.trim(); //todotileをtrimする　（空白削除）
       if (title) {
-        this.editedTodo.title = title;
+        // todoが空欄じゃなかったら
+        this.editedTodo.title = title; //editedに
       } else {
-        this.removeTodo(this.editedTodo);
+        this.removeTodo(this.editedTodo); //removetodoをする
       }
       this.editedTodo = null;
     },
@@ -96,4 +98,6 @@ export default {
 [v-cloak] {
   display: none;
 }
+/*このディレクティブは関連付けられた Vue インスタンスのコンパイルが終了するまでの間残存します。
+コンパイルされていない Mustache バインディングを隠すのに使うことができます。*/
 </style>

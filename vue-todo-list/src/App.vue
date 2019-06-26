@@ -43,10 +43,6 @@ const STORAGE_KEY = "todos-vuejs-2.6";
 const todoStorage = {
   fetch() {
     const todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); //localStorage 項目の読み込み -> json化
-    todos.forEach(function(todo, index) {
-      //それぞれのidにインデックスを代入
-      todo.id = index;
-    });
     todoStorage.uid = todos.length; //uidにlength
     return todos;
   },
@@ -55,20 +51,21 @@ const todoStorage = {
   }
 };
 const filters = {
+  //filterの関数
   all(todos) {
-    return todos;
+    return todos; //全てのtodo
   },
   active(todos) {
-    return todos.filter(todo => !todo.completed);
+    return todos.filter(todo => !todo.completed); //completedではない(active)を返す
   },
   completed(todos) {
     return todos.filter(todo => {
-      return todo.completed;
+      return todo.completed; //completedを返す
     });
   }
 };
 const getVisibility = () => {
-  return window.location.hash.replace(/#\/?/, " ").trim();
+  return window.location.hash.replace(/#\/?/, " ").trim(); //正規化して返す
 };
 //filter() メソッドは、引数として与えられたテスト関数を各配列要素に対して実行し、それに合格したすべての配列要素からなる新しい配列を生成します。
 export default {
@@ -80,20 +77,18 @@ export default {
   },
   data() {
     return {
-      todos: todoStorage.fetch(),
-      visibility: getVisibility() || "all"
+      todos: todoStorage.fetch(), // todostrageにfetchしたものを入れる
+      visibility: getVisibility() || "all" //初期をallに
     };
   },
   computed: {
+    // computed Vueインスタンスに組み込まれる算出プロパティ
     filteredTodos() {
-      // computed Vueインスタンスに組み込まれる算出プロパティ
-      //return this.todos;
-      //console.log("1"+this.visibility);
-      return filters[this.visibility](this.todos);
+      return filters[this.visibility](this.todos); // filterを使った判別
     },
     remaining() {
-      const todos = filters.active(this.todos);
-      return todos.length;
+      const todos = filters.active(this.todos); //activeでのfilterしたものをtodosに代入
+      return todos.length; //todoの量を返す
     },
     allDone: {
       get() {
@@ -105,45 +100,48 @@ export default {
     }
   },
   watch: {
+    //Vue インスタンス上でのひとつの式または算出関数 (computed function) の変更を監視します。
     todos: {
       handler(todos) {
-        todoStorage.save(todos);
+        todoStorage.save(todos); //変更されたらローカルに保存
       },
       deep: true
     }
   },
   mounted() {
+    //新たに作成される vm.$el によって置き換えられる el に対して、インスタンスがマウントされたちょうど後に呼ばれます。
     window.addEventListener("hashchange", this.onHashChange);
   },
   methods: {
     onAddTodo(todoTitle) {
-      const newTodo = todoTitle && todoTitle.trim();
+      const newTodo = todoTitle && todoTitle.trim(); //newtodoが空でなければString.trim()メソッドで両端の空白を除く
       if (!newTodo) {
         return;
       }
       this.todos.push({
-        id: todoStorage.uid++,
-        title: newTodo,
+        id: todoStorage.uid++, //idを固有のものに
+        title: newTodo, //タイトルをnewtodoに
         completed: false
       });
-      todoStorage.save(this.todos);
+      todoStorage.save(this.todos); //保存
     },
     onRemoveTodo(todo) {
-      this.todos = this.todos.filter(item => item !== todo);
+      this.todos = this.todos.filter(item => item !== todo); //itemとtodoが違かったらそれをfilterして代入
       //todoStorage.save(this.todos);
     },
     onDone(todo, completed) {
-      todo.completed = completed;
+      todo.completed = completed; //completed
     },
     onHashChange() {
       //console.log(JSON.stringify(visibility));
-      this.visibility = getVisibility();
+      this.visibility = getVisibility(); //all-active-completedの状態変化を取得
     },
     onAllDone(done) {
-      this.allDone = done;
+      this.allDone = done; //全てdoneにする
     },
     onRemoveCompleted() {
-      this.todos = filters.active(this.todos);
+      //completedの削除
+      this.todos = filters.active(this.todos); // activeのものを全体に書き換え
     }
   }
 };

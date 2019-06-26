@@ -16,9 +16,10 @@
 export default {
   name: "TodoEdit",
   directives: {
+    //カスタムディレクティブ
     ["todo-focus"](element, binding) {
       if (binding.value) {
-        element.focus();
+        element.focus(); //要素にフォーカス(クリックのやつ)
       }
     }
   },
@@ -32,19 +33,19 @@ export default {
     };
   },
   mounted() {
-    this.editedTitle = this.todo.title;
+    this.editedTitle = this.todo.title; //editedtieにtodo.title
   },
   methods: {
     onInput(event) {
-      this.editedTitle = event.target.value;
+      this.editedTitle = event.target.value; //
     },
     onDoneEdit(event) {
-      this.editedTitle = event.target.value;
-      this.$emit("done-edit", this.editedTitle);
+      this.editedTitle = event.target.value; //
+      this.$emit("done-edit", this.editedTitle); //編集されたことをemit
     },
     onCancelEdit(event) {
-      event.target.value = this.todo.title;
-      this.$emit("cancel-edit");
+      event.target.value = this.todo.title; //event.target.valueにtodotileを (元のtodo)
+      this.$emit("cancel-edit"); //cancel-editのemit
     }
   }
 };
