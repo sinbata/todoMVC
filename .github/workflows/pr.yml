@@ -7,19 +7,6 @@ jobs:
   label:
     runs-on: ubuntu-latest
     steps:
-    - name: Label approved PRs
-      if: github.event.review.state == 'approved'
-      uses: actions/github-script@v3
-      with:
-        github-token: ${{secrets.GITHUB_TOKEN}}
-        script: |
-          github.issues.addLabels({
-            issue_number: context.issue.number,
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            labels: ['Approved']
-          })
-
     - name: Label PRs with requested changes
       if: github.event.review.state == 'changes_requested'
       uses: actions/github-script@v3
@@ -30,5 +17,50 @@ jobs:
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            labels: ['Changes Requested']
+            labels: ['指摘対応中']
           })
+
+    - name: Remove "レビュー中" label and add "LGTM" labels when approved
+      if: github.event.review.state == 'approved'
+      uses: actions/github-script@v3
+      with:
+        github-token: ${{secrets.GITHUB_TOKEN}}
+        script: |
+          const issue_number = context.issue.number;
+          const owner = context.repo.owner;
+          const repo = context.repo.repo;
+
+          // Remove "レビュー中" label
+          github.issues.removeLabel({
+            issue_number,
+            owner,
+            repo,
+            name: 'レビュー中'
+          });
+
+          // Get current labels
+          const { data: currentLabels } = await github.issues.listLabelsOnIssue({
+            issue_number,
+            owner,
+            repo
+          });
+
+          // Check if "LGTM1" label exists
+          const hasLGTM1 = currentLabels.some(label => label.name === 'LGTM1');
+
+          // Add "LGTM1" or "LGTM2" label
+          if (hasLGTM1) {
+            github.issues.addLabels({
+              issue_number,
+              owner,
+              repo,
+              labels: ['LGTM2']
+            });
+          } else {
+            github.issues.addLabels({
+              issue_number,
+              owner,
+              repo,
+              labels: ['LGTM1']
+            });
+          }
